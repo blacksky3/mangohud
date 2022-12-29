@@ -13,7 +13,7 @@ pkgbase=mangohud
 pkgname=(mangohud mangoapp)
 pkgver=0.6.8
 pkgrel=1
-_mangohud_ver=0.6.8
+_mango_commit=efdcc6d2f54e37a3a32475453407f1eb33d1bef2
 _imgui_ver=1.89.1
 _imgui_meson_ver=1.88-2
 _spdlog_ver=1.11.0
@@ -23,7 +23,7 @@ url='https://github.com/flightlessmango/MangoHud'
 license=(MIT)
 makedepends=(appstream dbus git glew glfw-x11 glslang libglvnd libxnvctrl meson
              nlohmann-json python-mako vulkan-headers libx11 wayland)
-source=(https://github.com/flightlessmango/MangoHud/archive/refs/tags/v${_mangohud_ver}.tar.gz
+source=(git+https://github.com/flightlessmango/MangoHud.git#commit=${_mango_commit}
         git+https://github.com/flightlessmango/minhook.git
         https://github.com/ocornut/imgui/archive/v${_imgui_ver}/imgui-${_imgui_ver}.tar.gz
         https://wrapdb.mesonbuild.com/v2/imgui_${_imgui_meson_ver}/get_patch#/imgui-${_imgui_meson_ver}-wrap.zip
@@ -31,7 +31,7 @@ source=(https://github.com/flightlessmango/MangoHud/archive/refs/tags/v${_mangoh
         https://wrapdb.mesonbuild.com/v2/spdlog_${_spdlog_meson_ver}/get_patch#/spdlog-${_spdlog_meson_ver}-wrap.zip)
 
 prepare(){
-  cd $srcdir/MangoHud-${_mangohud_ver}
+  cd $srcdir/MangoHud
 
   git submodule init modules/minhook
   git config submodule.minhook.url $srcdir/minhook
@@ -46,7 +46,7 @@ prepare(){
 }
 
 build(){
-  cd $srcdir/MangoHud-${_mangohud_ver}
+  cd $srcdir/MangoHud
 
   rm -rf -v build_64
 
@@ -90,9 +90,9 @@ package_mangohud(){
               'mangoapp')
   replaces=("$pkgname-x11" "$pkgname-wayland")
 
-  meson install --tags runtime,scripts -C $srcdir/MangoHud-${_mangohud_ver}/build_64 --destdir "$pkgdir"
+  meson install --tags runtime,scripts -C $srcdir/MangoHud/build_64 --destdir "$pkgdir"
 
-  meson install --tags doc,man -C $srcdir/MangoHud-${_mangohud_ver}/build_64 --destdir "$pkgdir"
+  meson install --tags doc,man -C $srcdir/MangoHud/build_64 --destdir "$pkgdir"
 
   mv "${pkgdir}"/usr/share/vulkan/implicit_layer.d/MangoHud.json "${pkgdir}"/usr/share/vulkan/implicit_layer.d/MangoHud.x86_64.json
 
@@ -108,7 +108,7 @@ package_mangoapp(){
   depends=(glew glfw-x11 mangohud)
   optdepends=('gamescope')
 
-  meson install --tags "$pkgname" -C $srcdir/MangoHud-${_mangohud_ver}/build_64 --destdir "$pkgdir"
+  meson install --tags "$pkgname" -C $srcdir/MangoHud/build_64 --destdir "$pkgdir"
 
   mv "${pkgdir}"/usr/share/vulkan/implicit_layer.d/libMangoApp.json "${pkgdir}"/usr/share/vulkan/implicit_layer.d/libMangoApp.x86_64.json
 
@@ -119,7 +119,7 @@ package_mangoapp(){
   install -Dm644 $srcdir/MangoHud/LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
 }
 
-sha256sums=('d82b98aa54161c820b061676b7791b5f0e2ded2c288845252905215ead816593'
+sha256sums=('SKIP'
             'SKIP'
             '6d02a0079514d869e4b5f8f590f9060259385fcddd93a07ef21298b6a9610cbd'
             'a6c222df21e02092925091a5328283bad07134e04693b038dd10affff0dd9328'
