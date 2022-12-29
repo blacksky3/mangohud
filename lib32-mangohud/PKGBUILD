@@ -14,19 +14,21 @@ pkgname=(lib32-mangohud lib32-mangoapp)
 pkgver=0.6.8
 pkgrel=1
 _commit=efdcc6d2f54e37a3a32475453407f1eb33d1bef2
-_imgui_ver=1.81
-_spdlog_ver=1.8.5
+_imgui_ver=1.89.1
+_imgui_meson_ver=1.88-2
+_spdlog_ver=1.11.0
+_spdlog_meson_ver=1.11.0-1
 arch=(x86_64)
 url='https://github.com/flightlessmango/MangoHud'
 license=(MIT)
 makedepends=(git glfw-x11 glslang lib32-dbus lib32-libglvnd libxnvctrl
              meson ninja lib32-libx11 lib32-wayland nlohmann-json python-mako vulkan-headers)
 source=(git+https://github.com/flightlessmango/MangoHud.git#commit=${_commit}
-        git+https://github.com/flightlessmango/minhook.git
-        https://github.com/ocornut/imgui/archive/v${_imgui_ver}/imgui-${_imgui_ver}.tar.gz
-        https://wrapdb.mesonbuild.com/v2/imgui_${_imgui_ver}-1/get_patch#/imgui-${_imgui_ver}-1-wrap.zip
-        spdlog-${_spdlog_ver}.tar.gz::https://github.com/gabime/spdlog/archive/v${_spdlog_ver}.tar.gz
-        spdlog-${_spdlog_ver}-1-wrap.zip::https://wrapdb.mesonbuild.com/v1/projects/spdlog/${_spdlog_ver}/1/get_zip)
+       git+https://github.com/flightlessmango/minhook.git
+       https://github.com/ocornut/imgui/archive/v${_imgui_ver}/imgui-${_imgui_ver}.tar.gz
+       https://wrapdb.mesonbuild.com/v2/imgui_${_imgui_meson_ver}/get_patch#/imgui-${_imgui_meson_ver}-wrap.zip
+       spdlog-${_spdlog_ver}.tar.gz::https://github.com/gabime/spdlog/archive/v${_spdlog_ver}.tar.gz
+       https://wrapdb.mesonbuild.com/v2/spdlog_${_spdlog_meson_ver}/get_patch#/spdlog-${_spdlog_meson_ver}-wrap.zip)
 
 prepare(){
   cd $srcdir/MangoHud
@@ -37,7 +39,9 @@ prepare(){
 
   ln -sfv \
     "$srcdir/imgui-${_imgui_ver}" \
+    "$srcdir/imgui-${_imgui_meson_ver}" \
     "$srcdir/spdlog-${_spdlog_ver}" \
+    "$srcdir/spdlog-${_spdlog_meson_ver}" \
     subprojects
 }
 

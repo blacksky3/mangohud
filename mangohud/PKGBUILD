@@ -14,8 +14,10 @@ pkgname=(mangohud mangoapp)
 pkgver=0.6.8
 pkgrel=1
 _commit=efdcc6d2f54e37a3a32475453407f1eb33d1bef2
-_imgui_ver=1.81
-_spdlog_ver=1.8.5
+_imgui_ver=1.89.1
+_imgui_meson_ver=1.88-2
+_spdlog_ver=1.11.0
+_spdlog_meson_ver=1.11.0-1
 arch=(x86_64)
 url='https://github.com/flightlessmango/MangoHud'
 license=(MIT)
@@ -24,9 +26,9 @@ makedepends=(appstream dbus git glew glfw-x11 glslang libglvnd libxnvctrl meson
 source=(git+https://github.com/flightlessmango/MangoHud.git#commit=${_commit}
         git+https://github.com/flightlessmango/minhook.git
         https://github.com/ocornut/imgui/archive/v${_imgui_ver}/imgui-${_imgui_ver}.tar.gz
-        https://wrapdb.mesonbuild.com/v2/imgui_${_imgui_ver}-1/get_patch#/imgui-${_imgui_ver}-1-wrap.zi
+        https://wrapdb.mesonbuild.com/v2/imgui_${_imgui_meson_ver}/get_patch#/imgui-${_imgui_meson_ver}-wrap.zip
         spdlog-${_spdlog_ver}.tar.gz::https://github.com/gabime/spdlog/archive/v${_spdlog_ver}.tar.gz
-        spdlog-${_spdlog_ver}-1-wrap.zip::https://wrapdb.mesonbuild.com/v1/projects/spdlog/${_spdlog_ver}/1/get_zip)
+        https://wrapdb.mesonbuild.com/v2/spdlog_${_spdlog_meson_ver}/get_patch#/spdlog-${_spdlog_meson_ver}-wrap.zip)
 
 prepare(){
   cd $srcdir/MangoHud
@@ -37,7 +39,9 @@ prepare(){
 
   ln -sfv \
     "$srcdir/imgui-${_imgui_ver}" \
+    "$srcdir/imgui-${_imgui_meson_ver}" \
     "$srcdir/spdlog-${_spdlog_ver}" \
+    "$srcdir/spdlog-${_spdlog_meson_ver}" \
     subprojects
 }
 
@@ -117,7 +121,7 @@ package_mangoapp(){
 
 sha256sums=('SKIP'
             'SKIP'
-            'f7c619e03a06c0f25e8f47262dbc32d61fd033d2c91796812bf0f8c94fca78fb'
-            '6d00b442690b6a5c5d8f898311daafbce16d370cf64f53294c3b8c5c661e435f'
-            '944d0bd7c763ac721398dca2bb0f3b5ed16f67cef36810ede5061f35a543b4b8'
-            '3c38f275d5792b1286391102594329e98b17737924b344f98312ab09929b74be')
+            '6d02a0079514d869e4b5f8f590f9060259385fcddd93a07ef21298b6a9610cbd'
+            'a6c222df21e02092925091a5328283bad07134e04693b038dd10affff0dd9328'
+            'ca5cae8d6cac15dae0ec63b21d6ad3530070650f68076f3a4a862ca293a858bb'
+            'e7bffdea35f49decededa6195856d5e04781eb3d322437ee970446d3bf4b9c39')
