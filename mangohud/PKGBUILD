@@ -12,7 +12,7 @@
 pkgbase=mangohud
 pkgname=(mangohud mangoapp)
 pkgver=0.6.8
-pkgrel=2
+pkgrel=1
 _commit=efdcc6d2f54e37a3a32475453407f1eb33d1bef2
 _imgui_ver=1.81
 _spdlog_ver=1.8.5
