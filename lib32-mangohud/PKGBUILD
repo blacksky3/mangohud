@@ -13,7 +13,7 @@ pkgbase=lib32-mangohud
 pkgname=(lib32-mangohud lib32-mangoapp)
 pkgver=0.6.8
 pkgrel=1
-_commit=efdcc6d2f54e37a3a32475453407f1eb33d1bef2
+_mangohud_ver=0.6.8
 _imgui_ver=1.89.1
 _imgui_meson_ver=1.88-2
 _spdlog_ver=1.11.0
@@ -23,15 +23,15 @@ url='https://github.com/flightlessmango/MangoHud'
 license=(MIT)
 makedepends=(git glfw-x11 glslang lib32-dbus lib32-libglvnd libxnvctrl
              meson ninja lib32-libx11 lib32-wayland nlohmann-json python-mako vulkan-headers)
-source=(git+https://github.com/flightlessmango/MangoHud.git#commit=${_commit}
-       git+https://github.com/flightlessmango/minhook.git
-       https://github.com/ocornut/imgui/archive/v${_imgui_ver}/imgui-${_imgui_ver}.tar.gz
-       https://wrapdb.mesonbuild.com/v2/imgui_${_imgui_meson_ver}/get_patch#/imgui-${_imgui_meson_ver}-wrap.zip
-       spdlog-${_spdlog_ver}.tar.gz::https://github.com/gabime/spdlog/archive/v${_spdlog_ver}.tar.gz
-       https://wrapdb.mesonbuild.com/v2/spdlog_${_spdlog_meson_ver}/get_patch#/spdlog-${_spdlog_meson_ver}-wrap.zip)
+source=(https://github.com/flightlessmango/MangoHud/archive/refs/tags/v${_mangohud_ver}.tar.gz
+        git+https://github.com/flightlessmango/minhook.git
+        https://github.com/ocornut/imgui/archive/v${_imgui_ver}/imgui-${_imgui_ver}.tar.gz
+        https://wrapdb.mesonbuild.com/v2/imgui_${_imgui_meson_ver}/get_patch#/imgui-${_imgui_meson_ver}-wrap.zip
+        spdlog-${_spdlog_ver}.tar.gz::https://github.com/gabime/spdlog/archive/v${_spdlog_ver}.tar.gz
+        https://wrapdb.mesonbuild.com/v2/spdlog_${_spdlog_meson_ver}/get_patch#/spdlog-${_spdlog_meson_ver}-wrap.zip)
 
 prepare(){
-  cd $srcdir/MangoHud
+  cd $srcdir/MangoHud-${_mangohud_ver}
 
   git submodule init modules/minhook
   git config submodule.minhook.url "$srcdir/minhook"
@@ -53,7 +53,7 @@ export CFLAGS=-m32
 export CXXFLAGS=-m32
 export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
-  cd $srcdir/MangoHud
+  cd $srcdir/MangoHud-${_mangohud_ver}
 
   rm -rf -v build_32
 
@@ -96,7 +96,7 @@ package_lib32-mangohud(){
   optdepends=('lib32-libxnvctrl: NVIDIA GPU stats by XNVCtrl (AUR)')
   replaces=("$pkgname-x11" "$pkgname-wayland")
 
-  meson install --tags runtime -C $srcdir/MangoHud/build_32 --destdir "$pkgdir"
+  meson install --tags runtime -C $srcdir/MangoHud-${_mangohud_ver}/build_32 --destdir "$pkgdir"
 
   mv "${pkgdir}"/usr/share/vulkan/implicit_layer.d/MangoHud.json "${pkgdir}"/usr/share/vulkan/implicit_layer.d/MangoHud.i686.json
 
@@ -111,7 +111,7 @@ package_lib32-mangoapp(){
   pkgdesc='MangoApp 32-bit library'
   depends=('lib32-mangohud')
 
-  meson install --tags mangoapp -C $srcdir/MangoHud/build_32 --destdir "$pkgdir"
+  meson install --tags mangoapp -C $srcdir/MangoHud-${_mangohud_ver}/build_32 --destdir "$pkgdir"
 
   mv "${pkgdir}"/usr/share/vulkan/implicit_layer.d/libMangoApp.json "${pkgdir}"/usr/share/vulkan/implicit_layer.d/libMangoApp.i686.json
 
