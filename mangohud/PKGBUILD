@@ -14,8 +14,8 @@ pkgname=(mangohud mangoapp)
 pkgver=0.6.8
 pkgrel=1
 _mango_commit=efdcc6d2f54e37a3a32475453407f1eb33d1bef2
-_imgui_ver=1.89.1
-_imgui_meson_ver=1.88-2
+_imgui_ver=1.89.2
+_imgui_meson_ver=1.89.2-1
 _spdlog_ver=1.11.0
 _spdlog_meson_ver=1.11.0-1
 arch=(x86_64)
@@ -121,7 +121,7 @@ package_mangoapp(){
 
 sha256sums=('SKIP'
             'SKIP'
-            '6d02a0079514d869e4b5f8f590f9060259385fcddd93a07ef21298b6a9610cbd'
-            'a6c222df21e02092925091a5328283bad07134e04693b038dd10affff0dd9328'
+            'e110beffda505e6954feb7b13541d35a7c12a176b9723290c853684713df6a67'
+            '57dd9a868539dbd1b1d3702eeef47a1b6b16cd7cd7adc07352f204ed2d09a11d'
             'ca5cae8d6cac15dae0ec63b21d6ad3530070650f68076f3a4a862ca293a858bb'
             'e7bffdea35f49decededa6195856d5e04781eb3d322437ee970446d3bf4b9c39')
